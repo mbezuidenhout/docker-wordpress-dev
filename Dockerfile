@@ -22,7 +22,7 @@ RUN yes | pecl install xdebug \
     && echo "xdebug.profiler_output_dir=/var/www/html" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 # Install mailhog
-RUN curl -Lsf 'https://dl.google.com/go/go1.11.2.linux-amd64.tar.gz' | tar -C '/usr/local' -xvzf -
+RUN curl -Lsf 'https://dl.google.com/go/go1.11.2.linux-armv6l.tar.gz' | tar -C '/usr/local' -xvzf -
 ENV PATH /usr/local/go/bin:$PATH
 RUN go get github.com/mailhog/mhsendmail &&\
     cp /root/go/bin/mhsendmail /usr/bin/mhsendmail &&\
