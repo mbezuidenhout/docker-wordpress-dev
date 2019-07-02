@@ -1,5 +1,9 @@
+#
+# Dockerfile for WordPress development
+#
+
 FROM bezuidenhout/wordpress
-MAINTAINER Marius Bezuidenhout "marius.bezuidenhout@gmail.com"
+LABEL maintainer="Marius Bezuidenhout <marius.bezuidenhout@gmail.com>"
 
 RUN apt-get update &&\
     apt-get install --no-install-recommends --assume-yes --quiet ca-certificates subversion mariadb-client &&\
@@ -20,6 +24,12 @@ RUN yes | pecl install xdebug \
     && echo "xdebug.profiler_enable=0" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.profiler_enable_trigger=0" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.profiler_output_dir=/var/www/html" >> /usr/local/etc/php/conf.d/xdebug.ini
+
+# Set development parameters
+RUN sed -ri -e "s/^display_errors.*$/display_errors = On/" /usr/local/etc/php/conf.d/error-logging.ini \
+    && sed -ri -e "s/^html_errors.*$/html_errors = On/" /usr/local/etc/php/conf.d/error-logging.ini \
+    && sed -ri -e "s/^display_startup_errors.*$/display_startup_errors = On/" /usr/local/etc/php/conf.d/error-logging.ini \
+    && sed -ri -e "s/^error_reporting.*$/error_reporting = E_ALL/" /usr/local/etc/php/conf.d/error-logging.ini
 
 # Install mailhog
 RUN curl -Lsf 'https://dl.google.com/go/go1.11.2.linux-amd64.tar.gz' | tar -C '/usr/local' -xvzf -
