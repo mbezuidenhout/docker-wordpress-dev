@@ -33,7 +33,7 @@ esac
 # Mailhog client install
 PATH=/usr/local/go/bin:$PATH
 sleep 5
-go get github.com/mailhog/mhsendmail
+go get github.com/mailhog/mhsendmail && cp ~/go/bin/mhsendmail /usr/local/bin/
 # End mailhog install
 
 # Wordpress CLI install
