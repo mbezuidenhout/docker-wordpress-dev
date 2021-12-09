@@ -16,8 +16,9 @@ COPY installer.sh /usr/local/bin/
 # Install mailhog client, composer, WordPress CLI and xdebug and set development parameters
 RUN chmod +x /usr/local/bin/installer.sh \
     && /usr/local/bin/installer.sh \
-    && yes | pecl install xdebug \
     && yes | pecl install yaml \
+    && echo "extension=yaml.so" > /usr/local/etc/php/conf.d/yaml.ini \
+    && yes | pecl install xdebug \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini \
