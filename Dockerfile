@@ -2,11 +2,11 @@
 # Dockerfile for WordPress development
 #
 
-FROM bezuidenhout/wordpress:apache
+FROM bezuidenhout/wordpress:apache-php8.1
 LABEL maintainer="Marius Bezuidenhout <marius.bezuidenhout@gmail.com>"
 
 RUN apt-get update &&\
-    apt-get install --no-install-recommends --assume-yes --quiet ca-certificates subversion mariadb-client libyaml-dev unzip p7zip &&\
+    apt-get install --no-install-recommends --assume-yes --quiet ca-certificates subversion mariadb-client libyaml-dev unzip p7zip npm less &&\
     apt-get clean &&\
     rm -rf /var/lib/apt/lists/* &&\
     ldconfig
